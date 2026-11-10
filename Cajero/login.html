@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ATM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #1f3d2b;
+            --sand-beige: #e8dcc4;
+            --electric-purple: #8b5cf6;
+            --destructive: #ef4444;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1f3d2b 0%, #0d1f14 100%);
+            color: var(--sand-beige);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: linear-gradient(145deg, #e8dcc4 0%, #d4c5a9 100%);
+            color: var(--forest-green);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 320px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            color: var(--forest-green);
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--electric-purple);
+        }
+
+        /* --- SISTEMA DE BOTONES --- */
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .btn-default {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            width: 100%;
+        }
+
+        .btn-default:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h1>Bienvenido</h1>
+
+        <div class="input-group">
+            <label for="pin">Ingresa tu PIN</label>
+            <input type="password" id="pin" placeholder="****" required>
+        </div>
+        <!-- Botón Principal -->
+        <button id="btn" class="btn btn-default">Ingresar</button>
+
+    </div>
+    <script>
+        const btn = document.getElementById("btn");
+        const text = document.getElementById("pin");
+        const Pin = "1234";
+        let contenido = localStorage.getItem("usuario");
+
+        btn.addEventListener("click", () => {
+            if (text.value === Pin) {
+                if (contenido) {
+                    localStorage.setItem("usuario", contenido);
+                } else {
+                    let nuevoObjeto={
+                        "estado": true,
+                        "saldo": 1000,
+                        "Lista": [
+                            {
+                                "amount": 100,
+                                "Type": "Deposito",
+                                "Date":new Date()
+                            }
+                        ]
+                    };
+                    localStorage.setItem("usuario", JSON.stringify(nuevoObjeto));
+                }
+                window.location.href = "./main.html";
+            } else {
+                alert("Pin equivocado");
+            }
+        });
+        if(contenido){
+            window.location.href = "./main.html";
+        }
+    </script>
+</body>
+
+</html>
